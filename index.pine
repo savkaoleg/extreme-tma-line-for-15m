@@ -1,0 +1,30 @@
+//@version=3
+study("extreme tma line for 15m", shorttitle="TMA", overlay=true)
+atrMulti = 3
+length = input(title="Length", type=integer, defval=56, minval=1)
+src4H = security(tickerid, "240", close)
+src1H = security(tickerid, "60", close)
+srcNow = close
+
+tma4H = sma(sma(src4H, ceil(length / 2)), floor(length / 2) + 1)
+tma1H = sma(sma(src1H, ceil(length / 2)), floor(length / 2) + 1)
+tmaNow = sma(sma(src1H, ceil(length / 2)), floor(length / 2) + 1)
+
+datr4H = security(tickerid, "240", sma(tr[1], 100))
+datr1H = security(tickerid, "60", sma(tr[1], 100))
+datrNow = sma(tr[1], 100)
+atr4H = datr4H*3
+atr1H = datr1H*3
+atrNow = datrNow*3
+plot(tma4H+atr4H, title="tma4H+atr4H", linewidth=1, color=#9C27B0, transp=0)
+plot(tma4H-atr4H, title="tma4H-atr4H", linewidth=1, color=#9C27B0, transp=0)
+plot(tma4H, title="tma4H", linewidth=1, color=#9C27B0, transp=0, style=circles)
+
+
+plot(tma1H+atr1H, title="tma1H+atr1H", linewidth=1, color=#FFEB3B, transp=0)
+plot(tma1H-atr1H, title="tma1H-atr1H", linewidth=1, color=#FFEB3B, transp=0)
+plot(tma1H, title="tma1H", linewidth=1, color=#FFEB3B, transp=0, style=circles )
+
+plot(tmaNow+atrNow, title="tma1H+atrNow", linewidth=1, color=#9E9E9E, transp=0)
+plot(tmaNow-atrNow, title="tma1H-atrNow", linewidth=1, color=#9E9E9E, transp=0)
+plot(tmaNow, title="tma1H", linewidth=1, color=#9E9E9E, transp=0, style=circles )
